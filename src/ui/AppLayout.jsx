@@ -7,11 +7,10 @@ export default function AppLayout() {
   const navigation = useNavigation();
   const isLoading = navigation.state === 'loading';
   return (
-    <div className='layout'>
-      {isLoading && <Loader />}
+    <div className='h-screen grid grid-rows-[auto_1fr_auto]'>
       <Header />
-      <main>
-        <h1>Content</h1>
+      <main className='overflow-scroll relative'>
+        {isLoading && <Loader />}
         <Outlet />
       </main>
       <CartOverview />

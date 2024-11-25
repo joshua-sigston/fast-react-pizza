@@ -1,3 +1,4 @@
+import Button from '../../ui/Button';
 import { formatCurrency } from '../../utilities/helpers';
 import PropTypes from 'prop-types';
 
@@ -16,13 +17,24 @@ function MenuItem({ pizza }) {
   const { name, unitPrice, ingredients, soldOut, imageUrl } = pizza;
   console.log(pizza);
   return (
-    <li>
-      <img src={imageUrl} alt={name} />
-      <div>
-        <p>{name}</p>
-        <p>{ingredients.join(', ')}</p>
-        <div>
-          {!soldOut ? <p>{formatCurrency(unitPrice)}</p> : <p>Sold out</p>}
+    <li className='flex p-2 space-x-3'>
+      <img
+        src={imageUrl}
+        alt={name}
+        className={`h-24 ${soldOut ? 'opacity-70 grayscale' : ''}`}
+      />
+      <div className='flex grow flex-col'>
+        <p className='font-medium'>{name}</p>
+        <p className='text-sm capitalize italic text-stone-500'>
+          {ingredients.join(', ')}
+        </p>
+        <div className='mt-auto text-sm font-medium text-stone-100 uppercase flex items-center justify-between'>
+          {!soldOut ? (
+            <p className='text-stone-500'>{formatCurrency(unitPrice)}</p>
+          ) : (
+            <p className='text-stone-500'>Sold out</p>
+          )}
+          {!soldOut && <Button type='small'>Add To Cart</Button>}
         </div>
       </div>
     </li>

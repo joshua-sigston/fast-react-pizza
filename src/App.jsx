@@ -9,7 +9,6 @@ import {
   orderLoader,
   createOrderAction,
 } from './features';
-import './App.css';
 
 const router = createBrowserRouter([
   {
