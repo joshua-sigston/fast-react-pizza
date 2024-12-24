@@ -4,6 +4,7 @@ import { formatCurrency } from '../../utilities/helpers';
 import PropTypes from 'prop-types';
 import { addItem, getQuantity } from '../cart/cartSlice';
 import DeleteItem from '../cart/DeleteItem';
+import UpdateQuantity from '../cart/UpdateQuantity';
 
 MenuItem.propTypes = {
   pizza: PropTypes.shape({
@@ -51,7 +52,12 @@ function MenuItem({ pizza }) {
           ) : (
             <p className='text-stone-500'>Sold out</p>
           )}
-          {isInCart && <DeleteItem pizzaId={id} />}
+          {isInCart && (
+            <div>
+              <UpdateQuantity pizzaId={id} totalQuantity={quantity} />
+              <DeleteItem pizzaId={id} />
+            </div>
+          )}
           {!soldOut && !isInCart && (
             <Button onClick={addNewItem} type='small'>
               Add To Cart
