@@ -1,6 +1,9 @@
 import { formatCurrency } from '../../utilities/helpers';
 import PropTypes from 'prop-types';
 import DeleteItem from './DeleteItem';
+import UpdateQuantity from './UpdateQuantity';
+import { getQuantity } from './cartSlice';
+import { useSelector } from 'react-redux';
 
 CartItem.propTypes = {
   item: PropTypes.shape({
@@ -13,6 +16,7 @@ CartItem.propTypes = {
 
 function CartItem({ item }) {
   const { name, quantity, totalPrice, pizzaId } = item;
+  const totalQuantity = useSelector(getQuantity(pizzaId));
 
   return (
     <li className='flex items-end justify-between p-3'>
@@ -24,7 +28,8 @@ function CartItem({ item }) {
           <p>{formatCurrency(totalPrice)}</p>
         </div>
       </div>
-      <DeleteItem pizzaId={pizzaId} />
+      <UpdateQuantity pizzaId={pizzaId} totalQuantity={totalQuantity} />
+      <DeleteItem pizzaId={pizzaId} totalQuantity={totalQuantity} />
     </li>
   );
 }
