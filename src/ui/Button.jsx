@@ -3,9 +3,11 @@ import PropTypes, { string } from 'prop-types';
 Button.propTypes = {
   children: PropTypes.node.isRequired,
   type: string,
+  onClick: PropTypes.func,
+  disabled: PropTypes.bool,
 };
 
-export default function Button({ children, type }) {
+export default function Button({ children, type, onClick, disabled }) {
   const base =
     'inline-block text-sm rounded-full bg-sky-400 font-semibold uppercase tracking-wide text-stone-800 transition-colors duration-300 hover:bg-sky-300 focus:bg-sky-300 focus:outline-none focus:ring focus:ring-sky-300 focus:ring-offset-2 disabled:cursor-not-allowed';
 
@@ -17,5 +19,16 @@ export default function Button({ children, type }) {
     danger:
       'inline-block text-sm rounded-full border-2 bg-red-500 font-semibold uppercase tracking-wide text-white transition-colors duration-300 hover:bg-red-700 focus:outline-none  disabled:cursor-not-allowed px-4 py-2.5 md:px-6 md:py-3.5',
   };
-  return <button className={styles[type]}>{children}</button>;
+
+  if (onClick)
+    return (
+      <button disabled={disabled} onClick={onClick} className={styles[type]}>
+        {children}
+      </button>
+    );
+  return (
+    <button className={styles[type]} disabled={disabled}>
+      {children}
+    </button>
+  );
 }
